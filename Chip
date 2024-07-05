@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shaharia V11</title>
+  <style>
+    body {
+    background: linear-gradient(135deg,#2600ff, #158cff, #000000,#0e0f51,#7a00ff, #b900ff);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      position: relative; /* Ensure relative positioning for absolute elements */
+    }
+
+    #container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0; /* Ensure the container is behind the form */
+      overflow: hidden; /* Hide overflow of the 3D object */
+    }
+
+    .background-image {
+      display: none; /* Initially hide the image */
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover; /* Ensure the image covers the entire container */
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .spline-viewer {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover; /* Ensure the 3D object covers the entire container */
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      padding: 20px;
+      width: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, .7);
+      margin-top: 17px;
+      animation: fadeInTable 1s ease forwards;
+      border-color: #eaffff9e;
+      backdrop-filter: blur(1.9px);
+    }
+
+    @keyframes fadeInTable {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    th, td {
+      padding: 6px;
+      text-align: center;
+    }
+
+    tr {
+      padding: 20px;
+    }
+
+    th {
+      background: transparent;
+      color: white;
+      backdrop-filter: blur(0px);
+    }
+
+    td {
+      background-color: transparent;
+    }
+
+    tr:hover td {
+      background: transparent;
+      transform: scale(1.35);
+      transition: transform 0.5s ease;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: color 0.5s ease;
+    }
+
+    a:hover {
+      color: white;
+      transition: transform 0.5s ease;
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 1s ease-in-out forwards;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .bounce {
+      animation: bounce 1s ease forwards;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-30px);
+      }
+      60% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .popup-box {
+      position: fixed;
+      bottom: 22px;
+      right: 15px;
+      background-color: rgba(0, 0, 0, 1.10);
+      border: 1px solid #eaeaff;
+      border-radius: 10px;
+      padding: 7px;
+      width: 130px;
+      box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+      color: white;
+      text-align: center;
+      backdrop-filter: blur(1.5px);
+      z-index: 2;
+      animation: slideInPopup 1s ease forwards;
+    }
+
+    @keyframes slideInPopup {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    button {
+      width: calc(100% - 20px);
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: true;
+      border-color: white;
+      border-radius: 11px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: transparent;
+      padding: 10px;
+      color: red;
+      border-color: #7b2bff;
+    }
+
+    /* Media query for mobile devices */
+    @media only screen and (max-width: 768px) {
+      .spline-viewer {
+        display: none;
+      }
+      .background-image {
+        display: block;
+      }
+      .popup-box {
+        display: none; /* Hide popup box on mobile devices */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <spline-viewer class="spline-viewer" url="https://prod.spline.design/Wiz1a2dAb6LE1xPU/scene.splinecode"></spline-viewer>
+     <!-- Replace wallpaper.jpg with your desired image -->
+  </div>
+
+  <table id="chip-collection" align="center" border="13">
+    <tbody>
+      <tr>
+        <th colspan="2">Chips Collection</th>
+      </tr>
+      <tr>
+        <td><a href="#" onclick="showChip('chip-s-v1')">1. Chip S-v1</a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onclick="showChip('chip-s-v2')">2. Chip S-v2</a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onclick="showChip('chip-s-v3')">3. Chip S-v3</a></td>
+      </tr>
+      <tr>
+        <td><a href="#" onclick="showSpecialInterface()">4. Chip S-v4</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table id="chip-s-v1" align="center" border="13" style="display: none;">
+    <tbody>
+      <tr>
+        <th colspan="2">Chip S-v1</th>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/15MfM3-tUnoffl8r0lYEFMmFSMEnANSyA">Chip v1-i</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1FnoxFMOitiy4uM4_bYdllIUsvVVUIqPQ">Chip v1-ii</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1xgxwgAM5jaGrrwMldeLIOTPVD4waSXZn">Chip v1-iii</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1EQ26nf6-1tLiQDf31upjEvXNfp5f7ULY">Chip v1-iv</a></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button onclick="goBackToChips()">Previous</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table id="chip-s-v2" align="center" border="13" style="display: none;">
+    <tbody>
+      <tr>
+        <th colspan="2">Chip S-v2</th>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1QxNvuUOPQK2LSIecW3VjFjiz2A7wWcOM">Chip v2-v</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1S9hgj5ZUqSsifSun3N7sPIy9d5aoxxMM">Chip v2-vi</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1FKb4hE8VBDCStwxXGiI-YLILOTI6phTR">Chip v2-vii</a></td>
+      </tr
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1GoFA7Uc9VOERQs7bFpvVJOViipaXmeW2">Chip v2-viii</a></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button onclick="goBackToChips()">Previous</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table id="chip-s-v3" align="center" border="13" style="display: none;">
+    <tbody>
+      <tr>
+        <th colspan="2">Chip S-v3</th>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1GRA8EZsVhda73AOSqSBZmHPW5iobSg_l">Chip v3-ix</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1HP2StdvckauWSDxjHuYe9QySjJGQ37k8">Chip v3-x</a></td>
+      </tr>
+      <tr>
+        <td><a href="no link">Chip v3-xi</a></td>
+      </tr>
+      <tr>
+        <td><a href="no-link">Chip v3-xii</a></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button onclick="goBackToChips()">Previous</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table id="chip-s-v4" align="center" border="13" style="display: none;">
+    <tbody>
+      <tr>
+        <th colspan="2">Chip S-v4</th>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1su8iAR-XzGoM-rdKBp_yj8jVnSCx1drW">S.F (Viewer)</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://drive.google.com/drive/folders/1nVealbZ4nnS-enT27llogkuduI8vfNfC">S.F (Editor)</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://shahariahtml.github.io/Shaharia_apklist1190148/">Games & Apks</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://shahariahtml.github.io/shaharia_movielist1190148/">Videos & Movies</a></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button onclick="goBackToChips()">Previous</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+ <div class="popup-box" id="popupBox">
+  <!-- Display current time here -->
+  <span id="currentTime"></span>
+</div>
+
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+  <script>
+    (function() {
+      emailjs.init('KINuTBPPQVc1NfxC_'); // Replace with your EmailJS user ID
+    })();
+
+    function goBackToChips() {
+      const subinterfaces = ['chip-s-v1', 'chip-s-v2', 'chip-s-v3', 'chip-s-v4'];
+      subinterfaces.forEach(subinterface => {
+        document.getElementById(subinterface).style.display = 'none';
+      });
+
+      document.getElementById('chip-collection').style.display = 'table';
+    }
+
+    function showChip(chipId) {
+      document.getElementById('chip-collection').style.display = 'none';
+      document.getElementById(chipId).style.display = 'table';
+    }
+
+    function showSpecialInterface() {
+      document.getElementById('chip-collection').style.display = 'none';
+      document.getElementById('chip-s-v4').style.display = 'table';
+    }
+
+    function sendEmailOnVisit() {
+      emailjs.send("service_vkq92o9", "template_sd656md")
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+        }, function(error) {
+          console.error('FAILED...', error);
+        });
+    }
+
+    window.onload = function() {
+      sendEmailOnVisit();
+    };
+  </script>
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.6.0/build/spline-viewer.js"></script>
+
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+  }
+
+  function updatePopupTime() {
+    const currentTimeSpan = document.getElementById('currentTime');
+    if (currentTimeSpan) {
+      currentTimeSpan.textContent = updateTime();
+    }
+  }
+
+  // Update time initially
+  updatePopupTime();
+
+  // Update time every second
+  setInterval(updatePopupTime, 1000);
+</script>
+
+</body>
+</html>
